@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Web3 from "web3";
 import SupplyChainABI from "./artifacts/SupplyChain.json"
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { useHistory } from "react-router-dom"
 
 function AssignRoles() {
@@ -9,6 +11,13 @@ function AssignRoles() {
         loadWeb3();
         loadBlockchaindata();
     }, [])
+    const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const [show3, setShow3] = useState(false);
+    const [show4, setShow4] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const [currentaccount, setCurrentaccount] = useState("");
     const [loader, setloader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
@@ -180,19 +189,147 @@ function AssignRoles() {
         }
     }
 
+    
+
 
 
     return (
         <div>
             <span><b>Current Account Address:</b> {currentaccount}</span>
             <span onClick={redirect_to_home} className="btn btn-outline-danger btn-sm">HOME</span>
-            <h4>Raw Material Suppliers:</h4>
+            <>
+        <br>
+        </br>
+      <Button class="mr-1" onClick={() => setShow(true)} className="me-2">
+        Register Supplier
+      </Button>
+      <Button onClick={() => setShow2(true)} className="me-2">
+        Register Manufacturer
+      </Button>
+      <Button onClick={() => setShow3(true)} className="me-2">
+        Register Distributor
+      </Button>
+      <Button onClick={() => setShow4(true)} className="me-2">
+        Register Retailer
+      </Button>
+
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register Raw Material Suppliers</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        Raw Material Suppliers
             <form onSubmit={handlerSubmitRMS}>
+                <div class="form-row">
+                          
+                <input className="form-control" type="text" onChange={handlerChangeAddressRMS} placeholder="Ethereum Address" required />
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangeNameRMS} placeholder="Company Name" required />
+                </div>  
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangePlaceRMS} placeholder="Based In" required />
+                </div>
+                </div>
+                <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitRMS}>Register</button>
+            </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          
+          
+        </Modal.Footer>
+      </Modal>
+      <Modal show={show2} onHide={() => setShow2(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register Manufacturer</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        
+            <form onSubmit={handlerSubmitMAN}>
+                <div class="form-row">
+                          
+                <input className="form-control" type="text" onChange={handlerChangeAddressMAN} placeholder="Ethereum Address" required />
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangeNameMAN} placeholder="Company Name" required />
+                </div>  
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangePlaceMAN} placeholder="Based In" required />
+                </div>
+                </div>
+                <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMAN}>Register</button>
+            </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
+      <Modal show={show3} onHide={() => setShow3(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register Distributor</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        
+            <form onSubmit={handlerSubmitDIS}>
+                <div class="form-row">
+                          
+                <input className="form-control" type="text" onChange={handlerChangeAddressDIS} placeholder="Ethereum Address" required />
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangeNameDIS} placeholder="Company Name" required />
+                </div>  
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangePlaceDIS} placeholder="Based In" required />
+                </div>
+                </div>
+                <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitDIS}>Register</button>
+            </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
+      <Modal show={show4} onHide={() => setShow4(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register Retailer</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        
+            <form onSubmit={handlerSubmitRET}>
+                <div class="form-row">
+                          
+                <input className="form-control" type="text" onChange={handlerChangeAddressRET} placeholder="Ethereum Address" required />
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangeNameRET} placeholder="Company Name" required />
+                </div>  
+                <div class="col">
+                <input className="form-control" type="text" onChange={handlerChangePlaceRET} placeholder="Based In" required />
+                </div>
+                </div>
+                <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitRET}>Register</button>
+            </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
+    </>
+            <h4>Raw Material Suppliers:</h4>
+            {/* <form onSubmit={handlerSubmitRMS}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressRMS} placeholder="Ethereum Address" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangeNameRMS} placeholder="Raw Material Supplier Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceRMS} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitRMS}>Register</button>
-            </form>
+            </form> */}
             <table className="table table-sm">
                 <thead>
                     <tr>
@@ -216,12 +353,12 @@ function AssignRoles() {
                 </tbody>
             </table>
             <h4>Manufacturers:</h4>
-            <form onSubmit={handlerSubmitMAN}>
+            {/* <form onSubmit={handlerSubmitMAN}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressMAN} placeholder="Ethereum Address" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangeNameMAN} placeholder="Manufacturer Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceMAN} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMAN}>Register</button>
-            </form>
+            </form> */}
             <table className="table table-sm">
                 <thead>
                     <tr>
@@ -244,13 +381,13 @@ function AssignRoles() {
                     })}
                 </tbody>
             </table>
-            <h4>Distributors:</h4>
+            {/* <h4>Distributors:</h4>
             <form onSubmit={handlerSubmitDIS}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressDIS} placeholder="Ethereum Address" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangeNameDIS} placeholder="Distributor Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceDIS} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitDIS}>Register</button>
-            </form>
+            </form> */}
             <table className="table table-sm">
                 <thead>
                     <tr>
@@ -274,12 +411,12 @@ function AssignRoles() {
                 </tbody>
             </table>
             <h4>Retailers:</h4>
-            <form onSubmit={handlerSubmitRET}>
+            {/* <form onSubmit={handlerSubmitRET}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressRET} placeholder="Ethereum Address" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangeNameRET} placeholder="Retailer Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceRET} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitRET}>Register</button>
-            </form>
+            </form> */}
             <table className="table table-sm">
                 <thead>
                     <tr>

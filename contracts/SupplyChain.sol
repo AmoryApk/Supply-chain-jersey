@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.8.9;
 
 contract SupplyChain {
     //Smart Contract owner will be the person who deploys the contract only he can authorize various roles like retailer, Manufacturer,etc
