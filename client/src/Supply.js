@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import Web3 from "web3";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import SupplyChainABI from "./artifacts/SupplyChain.json"
 
 function Supply() {
@@ -10,6 +12,12 @@ function Supply() {
         loadBlockchaindata();
     }, [])
 
+    const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const [show3, setShow3] = useState(false);
+    const [show4, setShow4] = useState(false);
+
+    const handleClose = () => setShow(false);
     const [currentaccount, setCurrentaccount] = useState("");
     const [loader, setloader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
@@ -163,7 +171,94 @@ function Supply() {
                     })}
                 </tbody>
             </table>
-            <h5><b>Step 1: Supply Raw Materials</b>(Only a registered Raw Material Supplier can perform this step):-</h5>
+            <Button class="col px-md-1" onClick={() => setShow(true)} className="mr-2">
+                Process Supply
+            </Button>
+            <Button class="col px-md-5" onClick={() => setShow2(true)} className="mr-2">
+                Process Manufacturer
+            </Button>
+            <Button class="col px-md-5" onClick={() => setShow3(true)} className="mr-2">
+                Process Distributor
+            </Button>
+            <Button class="col px-md-5" onClick={() => setShow4(true)} className="mr-2">
+                Process Retailer
+            </Button>
+            <Modal show={show} onHide={() => setShow(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Process Supply</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handlerSubmitRMSsupply}>
+                        <div class="form-row">                  
+                        <input className="form-control" type="text" onChange={handlerChangeID} placeholder="Product ID" required />
+                        </div>
+                        <button className="btn btn-outline-success btn-sm md-2" onSubmit={handlerSubmitRMSsupply}>Process</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                
+                
+                </Modal.Footer>
+            </Modal>
+            <Modal show={show2} onHide={() => setShow2(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Process Manufacturing</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handlerSubmitManufacturing}>
+                        <div class="form-row">                  
+                        <input className="form-control" type="text" onChange={handlerChangeID} placeholder="Product ID" required />
+                        </div>
+                        <button className="btn btn-outline-success btn-sm md-2" onSubmit={handlerSubmitManufacturing}>Process</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={show3} onHide={() => setShow3(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Process Distribution</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handlerSubmitDistribute}>
+                        <div class="form-row">                  
+                        <input className="form-control" type="text" onChange={handlerChangeID} placeholder="Product ID" required />
+                        </div>
+                        <button className="btn btn-outline-success btn-sm md-2" onSubmit={handlerSubmitDistribute}>Process</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={show4} onHide={() => setShow4(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Process Retailing</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handlerSubmitRetail}>
+                        <div class="form-row">                  
+                        <input className="form-control" type="text" onChange={handlerChangeID} placeholder="Product ID" required />
+                        </div>
+                        <button className="btn btn-outline-success btn-sm md-2" onSubmit={handlerSubmitRetail}>Process</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
+            
+            {/* <h5><b>Step 1: Supply Raw Materials</b>(Only a registered Raw Material Supplier can perform this step):-</h5>
             <form onSubmit={handlerSubmitRMSsupply}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Jersey ID" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitRMSsupply}>Supply</button>
@@ -196,7 +291,7 @@ function Supply() {
                 <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Jersey ID" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitSold}>Sold</button>
             </form>
-            <hr />
+            <hr/> */}
         </div>
     )
 }

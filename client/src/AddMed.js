@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import Web3 from "web3";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import SupplyChainABI from "./artifacts/SupplyChain.json"
 
 function AddMed() {
@@ -10,6 +12,8 @@ function AddMed() {
         loadBlockchaindata();
     }, [])
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
     const [currentaccount, setCurrentaccount] = useState("");
     const [loader, setloader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
@@ -93,12 +97,38 @@ function AddMed() {
             <span><b>Current Account Address:</b> {currentaccount}</span>
             <span onClick={redirect_to_home} className="btn btn-outline-danger btn-sm"> HOME</span>
             <br />
-            <h5>Add Jersey Order:</h5>
-            <form onSubmit={handlerSubmitMED}>
+            {/* <h5>Add Jersey Order:</h5> */}
+            <Button class="col px-md-5" onClick={() => setShow(true)} className="mr-5">
+                Add Jersey Order
+            </Button>
+            <Modal show={show} onHide={() => setShow(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Order</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handlerSubmitMED}>
+                    <div class="form-group">      
+                        <input className="form-control" type="text" onChange={handlerChangeNameMED} placeholder="Product Name" required />
+                    </div>
+                    <div class="form-group">
+                        <input className="form-control" type="text" onChange={handlerChangeDesMED} placeholder="Product Description" required />
+                    </div>  
+                        <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMED}>Register</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                
+                
+                </Modal.Footer>
+            </Modal>
+            {/* <form onSubmit={handlerSubmitMED}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeNameMED} placeholder="Jersey Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangeDesMED} placeholder="Jersey Description" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMED}>Order</button>
-            </form>
+            </form> */}
             <br />
             <h5>Ordered Jerseys:</h5>
             <table className="table table-bordered">
